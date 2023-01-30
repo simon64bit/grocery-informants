@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text,View, TextInput } from 'react-native';
+import { Text,View, TextInput, StyleSheet} from 'react-native';
 
 export default function Search_bar(token){
     const [text,set_text] = useState('');
@@ -39,7 +39,8 @@ export default function Search_bar(token){
     return (
         <View>
             <TextInput
-                style={{ paddingTop: 600,paddingLeft:20 }}
+                style={styles.search}
+                // style={{ paddingTop: 600,paddingLeft:20 }}
                 placeholder="Search"
                 onChangeText={newText => set_text(newText)}
                 defaultValue={text}
@@ -52,4 +53,13 @@ export default function Search_bar(token){
     )
 }
 
-
+const styles = StyleSheet.create({
+    search: {
+      color: "red",
+      fontSize: 20,
+      fontWeight: '500',
+      marginTop: 10,
+      paddingTop: 600,
+      paddingLeft: 20
+    }
+  });
