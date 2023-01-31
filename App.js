@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Search_bar from './Search_bar.js';
 import {useState} from "react";
 import React from 'react';
-import firebase from './firebase.js';
+import firebase from './realtime';
 
 
 export default function App() {

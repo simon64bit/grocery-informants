@@ -9,7 +9,7 @@ export default function Search_bar(token){
     function handle_submit(event,token){
         const text = event.nativeEvent.text;
         //console.log(`Submitted text: ${text}`);
-        console.log(token["token"] );
+        //console.log(token["token"] );
 
         
         
