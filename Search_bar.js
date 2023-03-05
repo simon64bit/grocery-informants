@@ -6,6 +6,7 @@ import { getItems, addItem } from './Actions.js';
 export default function Search_bar(){
     
     const [text,set_text] = useState('');
+    const [location,set_location] = useState([]);
     const [data, set_data] = useState([]);
     //const [results, set_results] = useState([]);
     const items = useSelector(state => state.Reducer.items);
@@ -25,7 +26,7 @@ export default function Search_bar(){
           })
           .then(res => res.json())
           .then((token) => {
-        fetch(`https://api.kroger.com/v1/products?filter.term=${text}&filter.locationId=02400784`, 
+        fetch(`https://api.kroger.com/v1/products?filter.term=${text}&filter.locationId=01100695`, 
         {
             method: "GET",
             headers: {
@@ -36,6 +37,7 @@ export default function Search_bar(){
         .then(res => res.json())
         .then(json => {
             set_data(json["data"]);
+            console.log(json["data"])
         })})
     };
         
@@ -45,6 +47,35 @@ export default function Search_bar(){
             price = item.items[0].price.regular;
         }
         dispatch(addItem({"description": item.description, "price": price}))
+    }
+
+
+    async function get_location(event){
+        const text = event.nativeEvent.text;
+
+        await fetch("https://api.kroger.com/v1/connect/oauth2/token", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Authorization": "Basic Z2F0ZWNoLTkzMTNhMmUyODVlYTE2ZjZhNTU1OTIwYjcyOTZlNDhhMTQ3NjI4NTUwNzkyNDY5NDEzMDp4ajByUGtRcWxucFgyclNrVHBqZVd2bVd0S25WbVBrYWVFY2Z5ckFS" ,
+            },
+            body: "grant_type=client_credentials&scope=product.compact"
+            
+            })
+            .then(res => res.json())
+            .then((token) => {
+            fetch(`https://api.kroger.com/v1/locations?filter.zipCode.near=${text}`, 
+            {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Authorization": "Bearer " + token.access_token,
+                }
+            })
+        .then(res => res.json())
+        .then(json => {
+            console.log(json["data"]);
+        })})
     }
         
         /*if (data !== null){
@@ -68,6 +99,14 @@ export default function Search_bar(){
                 onChangeText={newText => set_text(newText)}
                 defaultValue={text}
                 onSubmitEditing={(event) => handle_submit(event)}
+            />
+            <TextInput
+                style={styles.search}
+                // style={{ paddingTop: 600,paddingLeft:20 }}
+                placeholder="Zip Code: 30332"
+                onChangeText={newText => set_location(newText)}
+                defaultValue={location}
+                onSubmitEditing={(event) => get_location(event)}
             />
             <Text style={{padding: 10, fontSize: 25}}>
                 {
