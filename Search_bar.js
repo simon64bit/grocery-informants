@@ -36,12 +36,10 @@ export default function Search_bar(){
         .then(res => res.json())
         .then(json => {
             set_data(json["data"]);
-            console.log(items);
         })})
     };
         
     function addToCart(item) {
-        console.log(items)
         let price = "N/A"
         if (Object.keys(item.items[0]).includes('price')) {
             price = item.items[0].price.regular;
