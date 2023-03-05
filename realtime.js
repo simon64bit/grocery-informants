@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set } from "firebase/database";
+/*import { initializeApp } from "firebase/app";
+//import { getDatabase, ref, set } from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -27,7 +27,7 @@ export default async function firebase(){
     
     // Initialize Firebase
     const app = initializeApp(firebaseConfig)
-    const database = getDatabase(app);
+    //const database = getDatabase(app);
 
     const data = 'bannana';
     
@@ -36,3 +36,5 @@ export default async function firebase(){
 
     //console.log('Added document with ID: ', res.id);
 }
+
+*/

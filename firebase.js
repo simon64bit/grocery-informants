@@ -1,4 +1,4 @@
-
+/*
 import { initializeApp } from 'firebase/app';
 import { getFirestore, getDocs } from 'firebase/firestore/lite';
 
@@ -35,3 +35,4 @@ export default async function firebase(){
     //console.log('Added document with ID: ', res.id);
 }
 
+*/

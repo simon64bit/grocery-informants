@@ -1,42 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Search_bar from './Search_bar.js';
-import {useState} from "react";
-import React from 'react';
-import firebase from './realtime';
-
+import Cart from './Cart.js';
+import Footer from './Footer.js';
+import React, {useState} from "react";
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+//import firebase from './realtime';
+import { Provider } from 'react-redux';
+import { Store } from './Store.js';
 
 export default function App() {
 
-  const [token, set_token] = useState(0);
-  const KrogerReq = async () => {
-    await fetch("https://api.kroger.com/v1/connect/oauth2/token", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Authorization": "Basic Z2F0ZWNoLTkzMTNhMmUyODVlYTE2ZjZhNTU1OTIwYjcyOTZlNDhhMTQ3NjI4NTUwNzkyNDY5NDEzMDp4ajByUGtRcWxucFgyclNrVHBqZVd2bVd0S25WbVBrYWVFY2Z5ckFS" ,
-      },
-      body: "grant_type=client_credentials&scope=product.compact"
-      
-    })
-    .then(res => res.json())
-    .then(json => set_token(json))
-  };
-  
-  //KrogerReq("gatech-9313a2e285ea16f6a555920b7296e48a1476285507924694130","xj0rPkQqlnpX2rSkTpjeWvmWtKnVmPkaeEcfyrAR","product.compact");
-  React.useEffect(() => {
-    const getData = async () => {
-      await KrogerReq();
-      firebase();
-    };
-    getData();
-  }, []);
+  const Stack = createNativeStackNavigator();
+  const [cart, set_cart] = useState([]);
 
-    return (
-        <Search_bar 
-          token={token["access_token"]}
-        />
-    )
+  return (
+    <Provider store={Store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Search">
+          <Stack.Screen name="Search" component={Search_bar}/>
+          <Stack.Screen name="Cart" component={Cart}/>
+        </Stack.Navigator>
+      <StatusBar style="auto" />
+      <Footer style={styles.footer} cart={cart} set_cart={set_cart}/>
+      </NavigationContainer>
+    </Provider>
+  );
 }
 
 
@@ -46,5 +36,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
+  }
 });
