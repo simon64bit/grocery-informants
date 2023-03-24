@@ -3,23 +3,25 @@ import { Text,View, StyleSheet, Button} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import { addItem } from './Actions.js';
 
-export default function SearchResult(item){
+export default function SearchResult2(item){
 
     const dispatch = useDispatch();
 
     item = item["item"];
+    console.log(item);
     function addToCart(item) {
         let price = "N/A"
-        if (Object.keys(item.items[0]).includes('price')) {
-            price = item.items[0].price.regular;
+        if (Object.keys(item).includes('price')) {
+            price = item.price.formatted_current_price;
+            console.log(price);
         }
-        dispatch(addItem({"description": item.description, "price": price}))
+        dispatch(addItem({"description": item.item.product_description.title, "price": price}))
     }
 
     return (
         <View style = {styles.container}>
-            <Text style = {styles.description}>{"\n" + item.description}</Text> 
-            <Text style = {styles.price}>{(Object.keys(item.items[0]).includes('price') ? item.items[0].price.regular : "N/A")}</Text>
+            <Text style = {styles.description}>{"\n" + item.item.product_description.title}</Text> 
+            <Text style = {styles.price}>{(Object.keys(item).includes('price') ? item.price.formatted_current_price : "N/A")}</Text>
             <Button style = {styles.button} onPress = {() => addToCart(item)} title = "Add" />
         </View>
     )

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Text,View, TextInput, StyleSheet} from 'react-native';
 import SearchResult from './SearchResult.js';
+import SearchResult2 from './SearchResult2.js';
 
 export default function Search_bar(){
     
     const [text,set_text] = useState('');
     const [location,set_location] = useState([]);
     const [data, set_data] = useState([]);
-
+    const [data2, set_data2] = useState([]);
     async function handle_submit(event){
         const text = event.nativeEvent.text;
           await fetch("https://api.kroger.com/v1/connect/oauth2/token", {
@@ -33,6 +34,23 @@ export default function Search_bar(){
         .then(json => {
             set_data(json["data"]);
         })})
+
+        
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': 'd8f7eadde9mshf1f7fb7566dd77dp174b03jsnca1a36de53a5',
+                'X-RapidAPI-Host': 'target-com-store-product-reviews-locations-data.p.rapidapi.com'
+            }
+        };
+        
+        fetch(`https://target-com-store-product-reviews-locations-data.p.rapidapi.com/product/search?store_id=2137&keyword=${text}&offset=0&limit=24&sponsored=1&rating=0`, options)
+        .then(res => res.json())
+        .then(json => {
+            //console.log(json["products"]);
+            set_data2(json["products"]);
+        })
+        
     };
 
 
@@ -69,7 +87,7 @@ export default function Search_bar(){
             <TextInput
                 style={styles.search}
                 placeholder="Search"
-                onChangeText={newText => set_text(newText)}
+                onChangeText={newText => {set_text(newText)}}
                 defaultValue={text}
                 onSubmitEditing={(event) => handle_submit(event)}
             />
@@ -81,9 +99,10 @@ export default function Search_bar(){
                 onSubmitEditing={(event) => get_location(event)}
             />
             <Text>
+
                 {
-                data.map(item => {
-                    return <SearchResult key={item.items[0].itemId} item={item}/>;
+                data2.map(item => {
+                    return (<SearchResult2 key={item.tcin} item={item}/>);
                     //return <View key={item.description}><Text>{"\n" + item.description + ": " + (Object.keys(item.items[0]).includes('price') ? item.items[0].price.regular : "N/A")}<Button onPress = {() => addToCart(item)} title = "Add" /></Text></View>
                 })
                 }
