@@ -12,12 +12,14 @@ export default function Cart(){
         <View>
             <Button onPress = {() => dispatch(emptyCart())} title = "Empty Cart"/>
             <Text style={{padding: 10, fontSize: 25}}>
-                Cart Price: {price}
+                
                 {
                 items.map(item => {
-                    return "\n" + item.description + ": " + item.price
+                    return "\n" + item.description + ": " + "$" + item.price
                 })
                 }
+
+                Cart Price:${price}
                 
             </Text>
         </View>
