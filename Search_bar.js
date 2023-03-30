@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Text,View, TextInput, StyleSheet} from 'react-native';
+import { Text,View, TextInput, StyleSheet, ScrollView} from 'react-native';
 import SearchResult from './SearchResult.js';
 import SearchResult2 from './SearchResult2.js';
 
 export default function Search_bar(){
-    
     const [text,set_text] = useState('');
     const [location,set_location] = useState([]);
     const [data, set_data] = useState([]);
@@ -98,6 +97,7 @@ export default function Search_bar(){
                 defaultValue={location}
                 onSubmitEditing={(event) => get_location(event)}
             />
+            <ScrollView style={styles.scrollview}>
             <Text>
 
                 {
@@ -107,6 +107,7 @@ export default function Search_bar(){
                 })
                 }
             </Text>
+           </ScrollView>
         </View>
     )
 }
@@ -119,5 +120,9 @@ const styles = StyleSheet.create({
       marginTop: 10,
       paddingTop: 60,
       paddingLeft: 20
+    },
+
+    scrollview: {
+       marginBottom: 180,
     }
   });
