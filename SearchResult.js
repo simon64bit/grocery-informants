@@ -13,7 +13,7 @@ export default function SearchResult(item){
         if (Object.keys(item.items[0]).includes('price')) {
             price = item.items[0].price.regular;
         }
-        dispatch(addItem({"description": item.description, "price": price}))
+        dispatch(addItem({"description": item.description, "price": price, "store": "Kroger"}))
     }
 
     return (
@@ -41,11 +41,6 @@ const styles = StyleSheet.create({
     },
     button: {
         width: '30%',
-        color: 'green',
         fontSize: 12,
-        backgroundColor: 'green'
-    },
-    addToCart: {
-        
     }
   });

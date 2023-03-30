@@ -2,12 +2,19 @@ import React, { useState } from 'react';
 import { Text,View, TextInput, StyleSheet, ScrollView} from 'react-native';
 import SearchResult from './SearchResult.js';
 import SearchResult2 from './SearchResult2.js';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 export default function Search_bar(){
     const [text,set_text] = useState('');
     const [location,set_location] = useState([]);
     const [data, set_data] = useState([]);
     const [data2, set_data2] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState("Target");
+    const [items, setItems] = useState([
+        {label: 'Kroger', value: 'Kroger'},
+        {label: 'Target', value: 'Target'}
+    ]);
     async function handle_submit(event){
         const text = event.nativeEvent.text;
           await fetch("https://api.kroger.com/v1/connect/oauth2/token", {
@@ -90,22 +97,39 @@ export default function Search_bar(){
                 defaultValue={text}
                 onSubmitEditing={(event) => handle_submit(event)}
             />
-            <TextInput
+            {/* <TextInput
                 style={styles.search}
                 placeholder="Zip Code: 30332"
                 onChangeText={newText => set_location(newText)}
                 defaultValue={location}
                 onSubmitEditing={(event) => get_location(event)}
+            /> */}
+            <DropDownPicker
+                open={open}
+                value={value}
+                items={items}
+                setOpen={setOpen}
+                setValue={setValue}
+                setItems={setItems}
             />
             <ScrollView style={styles.scrollview}>
-            <Text>
-
-                {
-                data2.map(item => {
-                    return (<SearchResult2 key={item.tcin} item={item}/>);
-                    //return <View key={item.description}><Text>{"\n" + item.description + ": " + (Object.keys(item.items[0]).includes('price') ? item.items[0].price.regular : "N/A")}<Button onPress = {() => addToCart(item)} title = "Add" /></Text></View>
-                })
-                }
+            <Text style={{margin: 10}}>
+                {(() => {
+                    switch(value) {
+                        case "Kroger": 
+                            return data.map(item => {
+                                return (<SearchResult key={item.tcin} item={item}/>);
+                            });
+                        case "Target": 
+                            return data2.map(item => {
+                                return (<SearchResult2 key={item.tcin} item={item}/>);
+                            })
+                        default: 
+                            return data.map(item => {
+                                return (<SearchResult key={item.tcin} item={item}/>);
+                            });
+                    }
+                })()}
             </Text>
            </ScrollView>
         </View>
