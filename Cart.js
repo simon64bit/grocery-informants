@@ -21,7 +21,7 @@ export default function Cart(){
                 </Text>
             </ScrollView>
             <View style={styles.footer}>
-                <Text style={{padding: 10, fontSize: 25}}>Cart Price:${price}</Text>
+                <Text style={{padding: 10, fontSize: 25, textAlign:"center"}}>Cart Price: ${price}</Text>
                 <Button onPress = {() => dispatch(emptyCart())} title = "Empty Cart"/>
             </View>
         </View>

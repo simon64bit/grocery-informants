@@ -19,7 +19,7 @@ export default function SearchResult(item){
     return (
         <View style = {styles.container}>
             <Text style = {styles.description}>{"\n" + item.description}</Text> 
-            <Text style = {styles.price}>{(Object.keys(item.items[0]).includes('price') ? item.items[0].price.regular : "N/A")}</Text>
+            <Text style = {styles.price}>{(Object.keys(item.items[0]).includes('price') ? ("$" + item.items[0].price.regular) : "N/A")}</Text>
             <Button style = {styles.button} onPress = {() => addToCart(item)} title = "Add" />
         </View>
     )
