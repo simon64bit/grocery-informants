@@ -8,14 +8,13 @@ export default function SearchResult2(item){
     const dispatch = useDispatch();
 
     item = item["item"];
-    console.log(item);
     function addToCart(item) {
         let price = "N/A"
         if (Object.keys(item).includes('price')) {
-            price = item.price.formatted_current_price;
+            price = parseFloat(item.price.formatted_current_price.split("$")[1]);
             console.log(price);
         }
-        dispatch(addItem({"description": item.item.product_description.title, "price": price}))
+        dispatch(addItem({"description": item.item.product_description.title, "price": price, "store": "Target"}))
     }
 
     return (
@@ -43,11 +42,6 @@ const styles = StyleSheet.create({
     },
     button: {
         width: '30%',
-        color: 'green',
-        fontSize: 12,
-        backgroundColor: 'green'
-    },
-    addToCart: {
-        
+        fontSize: 12
     }
   });

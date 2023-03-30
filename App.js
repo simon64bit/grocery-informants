@@ -23,18 +23,8 @@ export default function App() {
           <Stack.Screen name="Cart" component={Cart}/>
         </Stack.Navigator>
       <StatusBar style="auto" />
-      <Footer style={styles.footer} cart={cart} set_cart={set_cart}/>
+      <Footer cart={cart} set_cart={set_cart}/>
       </NavigationContainer>
     </Provider>
   );
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});

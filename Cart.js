@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Text,View, StyleSheet, Button} from 'react-native';
+import { Text,View, StyleSheet, Button, ScrollView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import { emptyCart } from './Actions.js';
+import CartItem from './CartItem.js';
 
 export default function Cart(){
     const items = useSelector(state => state.Reducer.items);
@@ -10,18 +11,30 @@ export default function Cart(){
 
     return (
         <View>
-            <Button onPress = {() => dispatch(emptyCart())} title = "Empty Cart"/>
-            <Text style={{padding: 10, fontSize: 25}}>
-                
-                {
-                items.map(item => {
-                    return "\n" + item.description + ": " + "$" + item.price
-                })
-                }
-
-                Cart Price:${price}
-                
-            </Text>
+            <ScrollView style={styles.scrollview}>
+                <Text style={{padding: 10, fontSize: 25, marginTop: 10}}>
+                    {
+                    items.map(item => {
+                        return <CartItem item={item}></CartItem>
+                    })
+                    }
+                </Text>
+            </ScrollView>
+            <View style={styles.footer}>
+                <Text style={{padding: 10, fontSize: 25}}>Cart Price:${price}</Text>
+                <Button onPress = {() => dispatch(emptyCart())} title = "Empty Cart"/>
+            </View>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    scrollview: {
+       margin: 10,
+       marginTop: 50,
+       height: '80%'
+    },
+    footer: {
+        marginBottom: 500
+    }
+  });
