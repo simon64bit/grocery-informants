@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Text,View, TextInput, StyleSheet, ScrollView} from 'react-native';
 import SearchResult from './SearchResult.js';
-import SearchResult2 from './SearchResult2.js';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 export default function Search_bar(){
@@ -10,8 +9,9 @@ export default function Search_bar(){
     const [data, set_data] = useState([]);
     const [data2, set_data2] = useState([]);
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState("Target");
+    const [value, setValue] = useState("All");
     const [items, setItems] = useState([
+        {label: 'All', value: 'All'},
         {label: 'Kroger', value: 'Kroger'},
         {label: 'Target', value: 'Target'}
     ]);
@@ -39,14 +39,14 @@ export default function Search_bar(){
         .then(res => res.json())
         .then(json => {
             set_data(json["data"]);
-            console.log(json)
+            console.log(json["data"])
         })})
 
         
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': '4e9e0ddf7emsh1a448840752b98bp137b8cjsnb01471dfaa1b',
+                'X-RapidAPI-Key': 'f9da3bcb3fmsh38a9cc95e01ad1fp1a538fjsn337e8b938b00',
                 'X-RapidAPI-Host': 'target-com-store-product-reviews-locations-data.p.rapidapi.com'
             }
         };
@@ -56,6 +56,7 @@ export default function Search_bar(){
         .then(json => {
             //console.log(json["products"]);
             set_data2(json["products"]);
+            console.log(json["products"])
         })
         
     };
@@ -123,8 +124,13 @@ export default function Search_bar(){
                             });
                         case "Target": 
                             return data2.map(item => {
-                                return (<SearchResult2 key={item.tcin} item={item}/>);
+                                return (<SearchResult key={item.tcin} item={item}/>);
                             })
+                        case "All": 
+                            return data.concat(data2).map(item => {
+                                return (<SearchResult key={item.tcin} item={item}/>);
+                            })
+                            
                         default: 
                             return data.map(item => {
                                 return (<SearchResult key={item.tcin} item={item}/>);
