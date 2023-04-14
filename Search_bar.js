@@ -21,7 +21,7 @@ export default function Search_bar(){
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
-              "Authorization": "Basic Z2F0ZWNoLTkzMTNhMmUyODVlYTE2ZjZhNTU1OTIwYjcyOTZlNDhhMTQ3NjI4NTUwNzkyNDY5NDEzMDp4ajByUGtRcWxucFgyclNrVHBqZVd2bVd0S25WbVBrYWVFY2Z5ckFS" ,
+              "Authorization": "Basic Z2F0ZWNoLTkzMTNhMmUyODVlYTE2ZjZhNTU1OTIwYjcyOTZlNDhhMTQ3NjI4NTUwNzkyNDY5NDEzMDpJazNmZVdrNTl1T1NTdVozREUzcW1jTzJWbFlTRmRDQVNhSUpTY1Ja" ,
             },
             body: "grant_type=client_credentials&scope=product.compact"
             
@@ -39,6 +39,7 @@ export default function Search_bar(){
         .then(res => res.json())
         .then(json => {
             set_data(json["data"]);
+            console.log(json)
         })})
 
         
