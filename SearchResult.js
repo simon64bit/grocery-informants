@@ -22,6 +22,7 @@ export default function SearchResult(item){
             <View style = {styles.container}>
                 <Text style = {styles.description}>{"\n" + item.description}</Text> 
                 <Text style = {styles.price}>{(Object.keys(item.items[0]).includes('price') ? ("$" + item.items[0].price.regular) : "N/A")}</Text>
+                <Text style = {styles.store}>{" Kroger"}</Text> 
                 <Button style = {styles.button} onPress = {() => addToCart(item)} title = "Add" />
             </View>
         )
@@ -39,6 +40,7 @@ export default function SearchResult(item){
             <View style = {styles.container}>
                 <Text style = {styles.description}>{"\n" + item.item.product_description.title}</Text> 
                 <Text style = {styles.price}>{(Object.keys(item).includes('price') ? item.price.formatted_current_price : "N/A")}</Text>
+                <Text style = {styles.store}>{" Target"}</Text> 
                 <Button style = {styles.button} onPress = {() => addToCart(item)} title = "Add" />
             </View>
         )
@@ -56,12 +58,18 @@ const styles = StyleSheet.create({
         fontSize: 12,
         backgroundColor: 'lightskyblue'
     },
+    
     price: {
-        width: '20%',
+        width: '15%',
         marginLeft: '8%'
     },
+    store: {
+        width: '15%',
+        fontSize: 12,
+        backgroundColor: 'lightskyblue'
+    },
     button: {
-        width: '30%',
+        width: '20%',
         fontSize: 12,
     }
   });
