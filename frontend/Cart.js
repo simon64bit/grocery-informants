@@ -4,10 +4,11 @@ import {useSelector, useDispatch} from 'react-redux';
 import { emptyCart } from './Actions.js';
 import CartItem from './CartItem.js';
 import DropDownPicker from 'react-native-dropdown-picker';
+import {server} from './Constants.js';
 
 export default function Cart(){
     const items = useSelector(state => state.Reducer.items);
-    const price = useSelector(state => state.Reducer.price);
+    const user = useSelector(state => state.Reducer.user);
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const [storeValue, setValue] = useState("All");
@@ -16,6 +17,17 @@ export default function Cart(){
         {label: 'Kroger', value: 'Kroger'},
         {label: 'Target', value: 'Target'}
     ]);
+
+    async function emptyCartDatabase() {
+        fetch(server + "/emptycart?user=" + user);
+    }
+
+    function emptyCartEvent() {
+        if (user != null) {
+            emptyCartDatabase();
+        }
+        dispatch(emptyCart());
+    }
 
     return (
         <View>
@@ -36,7 +48,7 @@ export default function Cart(){
             </ScrollView>
             <View style={styles.footer}>
                 <Text style={{padding: 10, fontSize: 25, textAlign:"center"}}>Cart Price: ${getCartPrice(storeValue, items)}</Text>
-                <Button onPress = {() => dispatch(emptyCart())} title = "Empty Cart"/>
+                <Button onPress = {() => emptyCartEvent()} title = "Empty Cart"/>
             </View>
         </View>
     )
@@ -45,7 +57,6 @@ export default function Cart(){
 function getCartItems(storeValue, items) {
     if (storeValue != 'All') {
         items = items.filter(item => item.store == storeValue)
-        console.log(items)
     }
     return (
         items.map(item => {
@@ -70,7 +81,7 @@ const styles = StyleSheet.create({
     scrollview: {
        margin: 10,
        marginTop: 50,
-       height: '80%'
+       height: '70%'
     },
     footer: {
         marginBottom: 680
