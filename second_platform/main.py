@@ -23,7 +23,7 @@ def user_data():
         if tup[1] is not None:
             signed += 1
     stats['percent_signed_in'] = str((signed / total) * 100) + "%"
-    stats['total'] = total
+    stats['total_users'] = total
     return stats
 
 
@@ -49,7 +49,7 @@ def item_data():
         top_five_items[key] = items[key]
     stats["top_five_items"] = top_five_items
     stats["stores"] = stores
-    stats["total"] = total
+    stats["total_items"] = total
     return stats
 
 
@@ -72,7 +72,7 @@ def search_data():
     for key in top_five:
         top_five_searches[key] = searches[key]
     stats["top_five_searches"] = top_five_searches
-    stats["total"] = total
+    stats["total_searches"] = total
     return stats
 
 @app.route('/all_data')
