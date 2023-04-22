@@ -7,7 +7,7 @@ var mysql = require('mysql');
 var con = mysql.createConnection({
   host: "grocery-informants.cpgputsuo8r5.us-east-2.rds.amazonaws.com",
   user: "admin",
-  password: "69uTaQVVYLvKCLdTEdSb",
+  password: "ask Rishi",
   database: "groceryinformants",
   port: '3306'
 });
