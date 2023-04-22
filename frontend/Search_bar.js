@@ -58,8 +58,8 @@ export default function Search_bar(){
         fetch(`https://target-com-store-product-reviews-locations-data.p.rapidapi.com/product/search?store_id=2137&keyword=${text}&offset=0&limit=24&sponsored=1&rating=0`, options)
         .then(res => res.json())
         .then(json => {
-            if (json["data"] != null) {
-                set_data2(json["data"]);
+            if (json["products"] != null) {
+                set_data2(json["products"]);
             }
         })
 
