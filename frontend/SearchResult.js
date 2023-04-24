@@ -45,7 +45,9 @@ export default function SearchResult(item){
             if (Object.keys(item).includes('price')) {
                 price = parseFloat(item.price.formatted_current_price.split("$")[1]);
             }
-            addItemToDatabase(item, "Target");
+            if (user != null) {
+                addItemToDatabase(item.item.product_description.title, price, "Target");
+            }
             dispatch(addItem({"description": item.item.product_description.title, "price": price, "store": "Target"}))
         }
     
