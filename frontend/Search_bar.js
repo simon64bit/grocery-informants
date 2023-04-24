@@ -50,7 +50,7 @@ export default function Search_bar(){
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': '3fa21bc701msh969878697ba607ep1bd24cjsn93a249c6641a',
+                'X-RapidAPI-Key': '7acf908d9cmsh5b3f404e011b493p1dcfcbjsnef756495f899',
                 'X-RapidAPI-Host': 'target-com-store-product-reviews-locations-data.p.rapidapi.com'
             }
         };
