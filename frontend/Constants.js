@@ -1,1 +1,1 @@
-export const server = "http://127.0.0.1:3000";
+export const server = "http://ec2-3-14-80-14.us-east-2.compute.amazonaws.com:3000";
